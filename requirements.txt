@@ -1,18 +1,32 @@
-pytorch_lightning==1.3.2
-transformers==4.24.0
-Pillow==8.1.0
-tqdm==4.56.0
-ipdb==0.13.4
-numpy
-einops==0.3.0
-pyarrow
-sacred==0.8.2
-pandas==1.1.5
-torchmetrics==0.6.0
-ftfy
-torchvision==0.13.0
-jsonlines
-chardet
+# PyTorch and PyTorch Lightning
 torch==1.12.0
+pytorch_lightning==1.3.2
+
+# Transformers for pre-trained models (T5, CLIP, etc.)
+transformers==4.24.0
+
+# Data processing libraries
+Pillow==8.1.0
+pyarrow
+pandas==1.1.5
 sentencepiece
 scikit-learn
+
+# For model training and evaluation
+torchmetrics==0.6.0
+torchvision==0.13.0
+einops==0.3.0
+
+# Utility libraries
+tqdm==4.56.0
+ipdb==0.13.4
+ftfy
+chardet
+jsonlines
+
+# For experiment tracking
+sacred==0.8.2
+
+# Testing
+pytest-cov
+unittest
