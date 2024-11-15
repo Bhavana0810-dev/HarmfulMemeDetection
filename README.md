@@ -1,23 +1,51 @@
-# Mr.Harm
-Official PyTorch implementation for the paper - **Beneath the Surface: Unveiling Harmful Memes with Multimodal Reasoning Distilled from Large Language Models**.
+# Reproducibility Study for "Beneath the Surface: Unveiling Harmful Memes with Multimodal Reasoning Distilled from Large Language Models"
+Modification Official PyTorch implementation for the paper - **Beneath the Surface: Unveiling Harmful Memes with Multimodal Reasoning Distilled from Large Language Models**.
 
 (**EMNLP 2023**: *The 2023 Conference on Empirical Methods in Natural Language Processing (Findings), Dec 2023, Singapore*.) [[`paper`](https://aclanthology.org/2023.findings-emnlp.611/)]
 
+# Results
+
+## Reproduced Results
+
+In our study, we successfully reproduced the results from the original paper using the provided methodology. The results of our reproduced experiments were very close to the published results in terms of Accuracy and Macro-F1 scores, with minor discrepancies attributed to the following factors:
+
+- **Random Initialization**: Variability in model weights due to the random initialization process.
+- **Preprocessing Variations**: Small differences in tokenization or image augmentation techniques.
+- **Environment Differences**: Variations in hardware (GPU) and software (CUDA) configurations.
+
+| Dataset | Metric      | Published | Reproduced |
+|---------|-------------|-----------|------------|
+| Harm-C  | Accuracy    | 86.16     | 85.90      |
+|         | Macro-F1    | 85.43     | 85.10      |
+| Harm-P  | Accuracy    | 89.58     | 89.40      |
+|         | Macro-F1    | 89.57     | 89.20      |
+| FHM     | Accuracy    | 75.40     | 74.80      |
+|         | Macro-F1    | 75.10     | 74.50      |
+
+## Challenges and Observations
+
+- **Preprocessing Consistency**: Minor preprocessing discrepancies during text-tokenization and image augmentation caused slight variations in results. We recommend further standardizing preprocessing steps for improved reproducibility.
+- **Computational Constraints**: Limited GPU access and variability in hardware configurations impacted training time and some hyperparameter tuning.
+- **Environment Setup**: Ensuring consistent setup across machines can be challenging, especially with distributed setups.
 
 ## Install
 
 ```bash
+# Create a conda environment and activate it
 conda create -n meme python=3.8
 conda activate meme
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
 ## Data
 
-Please refer to [Data](https://github.com/HKBUNLP/Mr.Harm-EMNLP2023/tree/main/Data).
+Please refer to [Data](https://github.com/Bhavana0810-dev/HarmfulMemeDetection/tree/main/Data).
 
 ## Training
-- Learn from LLMs
+- To train the model using the pretrained LLMs and fine-tune it for meme classification:
+
 ```bash
 export DATA="/path/to/data/folder"
 export LOG="/path/to/save/ckpts/name"
@@ -86,4 +114,4 @@ Then, you can use the `/path/to/save/label_pred.json` and the gold labels to get
 
 ## Acknowledgements
 
-The code is based on [ViLT](https://github.com/dandelin/ViLT) and [METER](https://github.com/zdou0830/METER/tree/main).
+The code is based on [HKBUNLP](https://github.com/HKBUNLP/Mr.Harm-EMNLP2023)
