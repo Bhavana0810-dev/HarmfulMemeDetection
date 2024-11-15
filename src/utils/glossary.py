@@ -1,5 +1,6 @@
 import re
 
+# Dictionary mapping common contractions to their expanded forms
 contractions = {
     "aint": "ain't",
     "arent": "aren't",
@@ -123,6 +124,7 @@ contractions = {
     "youve": "you've",
 }
 
+# Map for replacing common words with their numeric equivalents
 manual_map = {
     "none": "0",
     "zero": "0",
@@ -137,54 +139,57 @@ manual_map = {
     "nine": "9",
     "ten": "10",
 }
+
+# List of articles (to exclude from tokenization)
 articles = ["a", "an", "the"]
-period_strip = re.compile("(?!<=\d)(\.)(?!\d)")
-comma_strip = re.compile("(\d)(\,)(\d)")
+
+# Regular expressions for handling punctuation and periods
+period_strip = re.compile("(?!<=\d)(\.)(?!\d)")  # Strip periods except those between numbers
+comma_strip = re.compile("(\d)(\,)(\d)")  # Handle commas in numbers
 punct = [
-    ";",
-    r"/",
-    "[",
-    "]",
-    '"',
-    "{",
-    "}",
-    "(",
-    ")",
-    "=",
-    "+",
-    "\\",
-    "_",
-    "-",
-    ">",
-    "<",
-    "@",
-    "`",
-    ",",
-    "?",
-    "!",
-]
+    ";", "/", "[", "]", '"', "{", "}", "(", ")", "=", "+", "\\", "_", "-", ">", "<", "@", "`", ",", "?", "!", 
+]  # List of punctuation to remove or replace
 
 
 def normalize_word(token):
+    """
+    Normalize the input token by expanding contractions, removing punctuation, and applying manual mappings.
+    
+    Args:
+        token (str): The input word or token to normalize.
+        
+    Returns:
+        str: The normalized token.
+    """
     _token = token
+
+    # Remove punctuation and handle comma separation in numbers
     for p in punct:
-        if (p + " " in token or " " + p in token) or (
-            re.search(comma_strip, token) != None
-        ):
-            _token = _token.replace(p, "")
+        if (p + " " in token or " " + p in token) or re.search(comma_strip, token) != None:
+            _token = _token.replace(p, "")  # Remove punctuation
         else:
-            _token = _token.replace(p, " ")
+            _token = _token.replace(p, " ")  # Replace punctuation with space
+
+    # Remove periods not between numbers
     token = period_strip.sub("", _token, re.UNICODE)
 
+    # Split the token into individual words and process each
     _token = []
     temp = token.lower().split()
     for word in temp:
-        word = manual_map.setdefault(word, word)
-        if word not in articles:
+        word = manual_map.setdefault(word, word)  # Replace word using manual map
+        if word not in articles:  # Exclude articles
             _token.append(word)
+
+    # Expand contractions
     for i, word in enumerate(_token):
         if word in contractions:
             _token[i] = contractions[word]
+
+    # Join the words back into a single token
     token = " ".join(_token)
+
+    # Final cleanup of any remaining commas
     token = token.replace(",", "")
+
     return token
