@@ -111,7 +111,24 @@ Then, you can use the `/path/to/save/label_pred.json` and the gold labels to get
     pages = "9114--9128",
 }
 ```
-
+## Workload Clarification
+```
+The reproduction study was a collaborative effort,
+with each member contributing to key aspects:
+• Dataset Preparation (Bhavana, Priya): Ensured
+datasets matched the original study, replicat-
+ing preprocessing steps like tokenization, im-
+age resizing, and splits.
+• Model Implementation (Bhavana, Priya): Reproduced
+the training pipeline, fine-tuned hyperparam-
+eters, and validated performance metrics.
+• Robustness Evaluation (Bhavana): Designed per-
+turbation tests, analyzed model resilience un-
+der adversarial and noisy conditions.
+• Error Analysis (Priya): Investigated failure
+cases, compared predictions, and identified
+root causes for discrepancies.
+```
 ## Acknowledgements
 
 The code is based on [HKBUNLP](https://github.com/HKBUNLP/Mr.Harm-EMNLP2023)
